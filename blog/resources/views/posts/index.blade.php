@@ -41,7 +41,7 @@
                     <a href="{{route('posts.edit',$post->id)}}" class="btn btn-primary">Edit</a>
                     <form style="display: inline;" method="POST" action="{{route('posts.destroy', $post->id)}}">
                       @csrf
-                      @method('DELETE')
+                      {{-- @method('DELETE') --}}
                       <button type="submit" class="btn btn-danger">Delete</button>
                   </form>
                   </td>

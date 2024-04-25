@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     /*
@@ -56,4 +59,48 @@ class LoginController extends Controller
             : redirect()->route('login');
     }
 
+    public function username()
+    {
+        $value = request()->input('userLogin');
+        if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            request()->merge(["email" => $value]);
+            return 'email';
+        } else if (preg_match("/^[a-z,.'-]+$/", $value)) {
+            request()->merge(["name" => $value]);
+            return 'name';
+         } 
+        // else if (preg_match("/^01[0125][0-9]{8}$/", $value)) {
+        //     // Encrypt the user input to match the encrypted phone numbers in the database
+        //     $encryptedPhone = Crypt::encryptString($value);
+        //     request()->merge(["phone" => $encryptedPhone]);
+        //     return 'phone';
+        // } 
+        else {
+            request()->merge(["email" => $value]);
+            return 'email';
+        }
+
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate(
+            [
+                'userLogin' => 'required|string',
+                'password' => 'required|string',
+            ],
+            [
+                'userLogin.required' => 'the name/email is required'
+            ]
+        );
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+           'userLogin' => [trans('auth.failed')],
+        ]);
+    }
+
 }
+
