@@ -46,7 +46,7 @@ Route::middleware('verified')->group(function(){
    
    Route::get('/user/profile', [ProfileController::class,'profileInfo'])->name( 'user.profile' );
    
-   
+   ///// maroooooooooooooooooooooooooooooooooo
    });
    
    Auth::routes(['verify'=>true]);
