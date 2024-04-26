@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
@@ -28,7 +31,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
@@ -47,9 +50,11 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|min:6',
+            'name' => ['required', 'string', 'max:255'], 
+            'address' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'regex:/^01[0125][0-9]{8}$/'],
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
@@ -57,7 +62,9 @@ class AuthController extends Controller
         $user = User::create(
             array_merge(
                 $validator->validated(),
-                ['password' => bcrypt($request->password)]
+                ['password' => Hash::make($request->password),
+                'phone'=>Crypt::encryptString( $request->phone),
+                'address'=>Crypt::encryptString( $request->address)]
             )
         );
         return response()->json([
@@ -103,7 +110,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
     }
