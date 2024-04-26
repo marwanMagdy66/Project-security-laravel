@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('guest:admin')->except(["logout"]);
+    }
     public function login()
     {
         return view('admin.auth.login');
@@ -21,10 +25,10 @@ class AdminLoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::guard('admin')->attempt($request->only('email','password'),$request->get('remember'))) {
             return redirect()->route('admin.dashboard.home');
         } else {
-            return redirect()->back()->withInput(['email' => $request->email])->with('errorResponse', "this credentials do not our recordes");
+            return redirect()->back()->withInput(['email' => $request->email])->withErrors(['errorResponse'=> "this credentials do not our recordes"]);
 
         }   
     }

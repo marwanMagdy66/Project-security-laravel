@@ -54,7 +54,7 @@ class PostController extends Controller
     // $userID=User::table('users')::where('name',$UserName)::from
 
 
-    return to_route('posts.index');
+    return to_route('posts.index')->with(['message'=>'The Post  has been created successfully!']);
   }
   public function edit(Post $post,  Request $request)
   {
@@ -96,7 +96,7 @@ class PostController extends Controller
 
     Post::where('id', $postID)->delete();
 
-    return to_route('posts.index');
+    return to_route('posts.index')->with(['message'=>'The Post Deleted Successfully']);
   }
 
 }

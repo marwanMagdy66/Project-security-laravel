@@ -100,7 +100,7 @@ class AdminHomeController extends Controller
 
     Post::where('id', $postID)->delete();
 
-    return to_route('admin.dashboard.home');
+    return to_route('admin.dashboard.home')->with(['message'=>'The Post Deleted Successfully']);
   }
 
   public function edit_users(Request $request) {
@@ -127,7 +127,7 @@ Post::where('user_id', $userId)->delete();
 
   User::where('id', $userId)->delete();
 
-  return to_route('admin.edit.users');
+  return to_route('admin.edit.users')->with(['message'=>'User has been removed!']);
 }
 
 }

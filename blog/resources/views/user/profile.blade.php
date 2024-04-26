@@ -51,24 +51,28 @@
         </div>
       </nav>
 
-      <div class="input-group mb-3">
+      <div class="input-group mb-3" style="width:60%;margin-left: 2%; 
+    border-radius: 45px">
         <span class="input-group-text" id="inputGroup-sizing-default">Your Name</span>
-        <input name="YourName" value="{{$user->name}}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input name="YourName" style="font-size:18px" value="{{$user->name}}" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly>
       </div>
 
-      <div class="input-group mb-3">
+      <div class="input-group mb-3"  style="width:60%;margin-left: 2%; 
+    border-radius: 45px">
         <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
-        <input name="YourAddress" type="text" value="{{$address}}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input name="YourAddress" style="font-size:18px" type="text" value="{{$address}}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly>
       </div>
 
-      <div class="input-group mb-3">
+      <div class="input-group mb-3"  style="width:60%;margin-left: 2%; 
+    border-radius: 45px">
         <span class="input-group-text" id="inputGroup-sizing-default">Phone number</span>
-        <input type="text" name="PhoneNumber" class="form-control" value="{{$phonNum}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input type="text" name="PhoneNumber" style="font-size:18px" class="form-control" value="{{$phonNum}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly>
       </div>
 
-      <div class="input-group mb-3">
+      <div class="input-group mb-3"  style="width:60%;margin-left: 2%; 
+    border-radius: 45px">
         <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
-        <input type="text" name="YourEmail" class="form-control" value="{{$user->email}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input type="text" name="YourEmail" style="font-size:18px" class="form-control" value="{{$user->email}}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" readonly>
       </div>
       <div class="mt-5">
         <div class="text-center">

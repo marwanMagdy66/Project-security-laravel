@@ -2,7 +2,7 @@
   @yield('title')
 <title>show</title>
 </div>
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('content')
 
       <div class="card">

@@ -5,7 +5,23 @@
       @extends('layouts.app')
       @section('content')
           
-     
+      <div>
+        @if(session()->has('message'))
+        <div class="alert alert-success" role="alert" style="    border-radius: 3%;
+        border-radius: 3%;
+        margin-top: 12px;
+        width: 420px;
+        margin-left: 38%;
+        margin-bottom: 46px;
+        text-align: center;
+        box-shadow: 8px 10px 18px -7px;
+        font-size: 16px;
+        padding: 10px;">
+            {{session()->get('message')}}
+        </div>
+          @endif
+        
+        </div>
       
       <div class="mt-5">
         <div class="text-center">
